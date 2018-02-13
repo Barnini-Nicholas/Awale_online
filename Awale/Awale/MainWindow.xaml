@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Awale"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="700">
     <Grid>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="100,82,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="20,81,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="420,82,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="340,82,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="260,82,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="180,82,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="100,57,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="420,57,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="340,57,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="260,57,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="180,57,0,0" VerticalAlignment="Top" Width="75"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="180,111,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="100,110,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="500,111,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="420,111,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="340,111,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="260,111,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="180,86,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="100,85,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="500,86,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="420,86,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="340,86,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="260,86,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="vic2" Content="Label" HorizontalAlignment="Left" Height="45" Margin="10,85,0,0" VerticalAlignment="Top" Width="72"/>
+        <Label x:Name="vic1" Content="Label" HorizontalAlignment="Left" Height="45" Margin="598,85,0,0" VerticalAlignment="Top" Width="72"/>
 
     </Grid>
 </Window>
