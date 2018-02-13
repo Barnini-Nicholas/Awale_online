@@ -24,5 +24,13 @@ namespace Awale
         {
             InitializeComponent();
         }
+
+        void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button fe = e.Source as Button;
+            int value = Int32.Parse(fe.Content.ToString());
+            fe.Content = value + 1;
+        }
+
     }
 }

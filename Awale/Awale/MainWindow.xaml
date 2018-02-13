@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="100,82,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="20,81,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="420,82,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="340,82,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="260,82,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="180,82,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="100,57,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="420,57,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="340,57,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="260,57,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="0" Click="Button_Click" HorizontalAlignment="Left" Margin="180,57,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
 </Window>
