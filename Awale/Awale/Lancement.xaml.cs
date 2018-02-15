@@ -20,9 +20,6 @@ namespace Awale
     /// </summary>
     public partial class Lancement : Window
     {
-        public int NbColumns { get; set; }
-        public const int DefaultNbColumns = 6;
-
         public Lancement()
         {
             InitializeComponent();
@@ -36,7 +33,19 @@ namespace Awale
             Close();
         }
 
-        private void LancerPartieEnLigne(object sender, RoutedEventArgs e)
+        private void LancerHebergerPartie(object sender, RoutedEventArgs e)
+        {
+            new HostGame().Show();
+            Close();
+        }
+
+        private void LancerConnecterPartie(object sender, RoutedEventArgs e)
+        {
+            new Connect().Show();
+            Close();
+        }
+
+        private void LancerHistorique(object sender, RoutedEventArgs e)
         {
 
         }

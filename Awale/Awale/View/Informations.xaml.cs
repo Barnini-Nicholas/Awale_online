@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Awale
+namespace Awale.View
 {
     /// <summary>
     /// Logique d'interaction pour Informations.xaml

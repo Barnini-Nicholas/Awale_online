@@ -21,16 +21,26 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <!-- Bouton pour lancer une partie en locale -->
         <Button Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="Partie en locale" Click="LancerPartieLocale" />
 
-        <!-- Bouton pour lancer une partie en ligne -->
-        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Content="Partie en ligne" Click="LancerPartieEnLigne" />
+        <!-- Bouton pour héberger une partie en ligne -->
+        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Content="Héberger une partie" Click="LancerHebergerPartie" />
+
+        <!-- Bouton pour se connecter à une partie en ligne -->
+        <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Se connecter à une partie" Click="LancerConnecterPartie" />
+
+        <!-- Bouton pour afficher l'historique -->
+        <Button Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Content="Historique" Click="LancerHistorique" />
 
         <!-- Bouton pour afficher des informations sur le jeu -->
-        <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Informations" Click="Informations" />
+        <Button Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Content="Informations" Click="Informations" />
 
     </Grid>
 </Window>
