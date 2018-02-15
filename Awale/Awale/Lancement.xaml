@@ -1,0 +1,36 @@
+﻿<Window x:Class="Awale.Lancement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Awale - MBDS 2017/2018" Height="300" Width="300">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="10*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <!-- Bouton pour lancer une partie en locale -->
+        <Button Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Content="Partie en locale" Click="LancerPartieLocale" />
+
+        <!-- Bouton pour lancer une partie en ligne -->
+        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Content="Partie en ligne" Click="LancerPartieEnLigne" />
+
+        <!-- Bouton pour afficher des informations sur le jeu -->
+        <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Content="Informations" Click="Informations" />
+
+    </Grid>
+</Window>
