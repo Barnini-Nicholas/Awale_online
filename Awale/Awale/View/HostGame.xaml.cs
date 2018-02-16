@@ -89,7 +89,6 @@ namespace Awale.View
                 }
                 if (message.Split(';')[0] == "LANCER")
                 {
-                    Attente.Abort();
                     LancerLaPartie();
                 }
             }
