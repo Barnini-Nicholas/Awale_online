@@ -89,7 +89,7 @@ namespace Awale.View
                 }
                 if (message.Split(';')[0] == "LANCER")
                 {
-                    LancerLaPartie();
+                    Dispatcher.Invoke((LancerLaPartieDelegate)LancerLaPartie);
                 }
             }
         }
@@ -98,6 +98,8 @@ namespace Awale.View
         {
             LancerLaPartie();
         }
+
+        private delegate void LancerLaPartieDelegate();
 
         private void LancerLaPartie()
         {
