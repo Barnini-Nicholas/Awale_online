@@ -27,6 +27,7 @@ namespace Awale.View
         public String NomJ1 { get; set; }
         private String nomJ2;
         private TcpClient client;
+        public Thread Attente { get; set; }
 
         public String NomJ2
         {
@@ -68,8 +69,8 @@ namespace Awale.View
             client = ServerSocket.AcceptTcpClient();
             Console.WriteLine("Someone connected!!");
 
-            Thread t = new Thread(AttenteMessage);
-            t.Start();
+            Attente = new Thread(AttenteMessage);
+            Attente.Start();
         }
 
         private void AttenteMessage()
@@ -88,6 +89,7 @@ namespace Awale.View
                 }
                 if (message.Split(';')[0] == "LANCER")
                 {
+                    Attente.Abort();
                     LancerLaPartie();
                 }
             }
