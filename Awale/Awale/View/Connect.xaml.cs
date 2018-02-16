@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -22,7 +23,9 @@ namespace Awale.View
     /// </summary>
     public partial class Connect : Window
     {
-        public String Name { get; set; }
+        private TcpClient server;
+
+        public String Nom { get; set; }
 
         public String Ip { get; set; }
 
@@ -47,31 +50,45 @@ namespace Awale.View
                 MessageBox.Show("Veuillez entrer un nom");
                 return;
             }
+            Button bouton = sender as Button;
 
-            Thread t = new Thread(ConnectToHost);
-            t.Start();
+            if (bouton.Content.ToString() == "Lancer la partie !")
+            {
+                BinaryWriter writer = new BinaryWriter(server.GetStream());
+                writer.Write("LANCER;" + Nom);
+            }
+            else
+            {
+                Thread t = new Thread(ConnectToHost);
+                t.Start();
+
+                bouton.Content = "Lancer la partie !";
+            }
         }
 
         private void ConnectToHost()
         {
             IPAddress ip = IPAddress.Parse(Ip);
             int port = 5000;
-            try {
-                TcpClient client = new TcpClient();
-                client.Connect(ip, port);
+            try
+            {
+                server = new TcpClient();
+                server.Connect(ip, port);
                 Console.WriteLine("client connected!!");
 
-                // Envoi d'un message test
-                byte[] buffer = Encoding.ASCII.GetBytes(Name + Environment.NewLine);
+                BinaryWriter writer = new BinaryWriter(server.GetStream());
+                writer.Write("NOM;" + Nom);
 
-                NetworkStream stream = client.GetStream();
-
-                stream.Write(buffer, 0, buffer.Length);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("CA MARCHE PAS");
             }
+        }
+
+        private void AttenteMessage()
+        {
+
         }
     }
 }

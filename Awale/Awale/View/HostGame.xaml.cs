@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -20,13 +22,28 @@ namespace Awale.View
     /// <summary>
     /// Logique d'interaction pour LobbyEnLigne.xaml
     /// </summary>
-    public partial class HostGame : Window
+    public partial class HostGame : Window , INotifyPropertyChanged
     {
         public String NomJ1 { get; set; }
-        public String NomJ2 { get; set; }
+        private String nomJ2;
+        private TcpClient client;
+
+        public String NomJ2
+        {
+            get
+            {
+                return nomJ2;
+            }
+            set
+            {
+                nomJ2 = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("nomJ2"));
+            }
+        }
 
         public int NbColumns { get; set; }
         public const int DefaultNbColumns = 6;
+
 
         public HostGame()
         {
@@ -48,18 +65,32 @@ namespace Awale.View
             ServerSocket.Start();
             Console.WriteLine("Serveur en marche... " + ServerSocket.ToString());
 
-            TcpClient client = ServerSocket.AcceptTcpClient();
+            client = ServerSocket.AcceptTcpClient();
             Console.WriteLine("Someone connected!!");
 
-            NetworkStream ns = client.GetStream();
-            byte[] receivedBytes = new byte[1024];
-            int byte_count;
+            Thread t = new Thread(AttenteMessage);
+            t.Start();
+        }
 
-            while ((byte_count = ns.Read(receivedBytes, 0, receivedBytes.Length)) > 0)
+        private void AttenteMessage()
+        {
+            while (true)
             {
-                Console.Write(Encoding.ASCII.GetString(receivedBytes, 0, byte_count));
-            }
+                String message = "";
+                
+                BinaryReader reader = new BinaryReader(client.GetStream());
+                message = reader.ReadString();
+                Console.WriteLine(message);
 
+                if(message.Split(';')[0] == "NOM")
+                {
+                    NomJ2 = message.Split(';')[1];
+                }
+                if (message.Split(';')[0] == "LANCER")
+                {
+                    MessageBox.Show("Lancement de la partie !");
+                }
+            }
         }
 
         private void LancerPartie(object sender, RoutedEventArgs e)
@@ -75,5 +106,8 @@ namespace Awale.View
 
             Close();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
     }
 }
