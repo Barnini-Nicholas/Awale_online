@@ -47,7 +47,8 @@ namespace Awale
 
         private void LancerHistorique(object sender, RoutedEventArgs e)
         {
-
+            new Historique().Show();
+            Close();
         }
 
         private void Informations(object sender, RoutedEventArgs e)

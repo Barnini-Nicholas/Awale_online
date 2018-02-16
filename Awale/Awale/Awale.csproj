@@ -73,6 +73,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Historique.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Informations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -98,9 +102,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\Joueur.cs" />
+    <Compile Include="Model\Score.cs" />
     <Compile Include="Model\Trou.cs" />
     <Compile Include="View\Connect.xaml.cs">
       <DependentUpon>Connect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Historique.xaml.cs">
+      <DependentUpon>Historique.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Informations.xaml.cs">
       <DependentUpon>Informations.xaml</DependentUpon>

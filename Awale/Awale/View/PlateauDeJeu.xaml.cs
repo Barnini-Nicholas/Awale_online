@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +50,7 @@ namespace Awale.View
         public PlateauDeJeu(string nomJ1, string nomJ2, int nbColumns)
         {
             InitializeComponent();
+
 
             NbColumns = nbColumns;
             NbTrous = nbColumns * 2;
@@ -153,7 +155,7 @@ namespace Awale.View
                 }
 
                 // Si on repasse par le trou cliqué auparavant 
-                if(indexTrouCourant == indexTrou)
+                if (indexTrouCourant == indexTrou)
                 {
                     // -> On saute le trou
                     continue;
@@ -182,7 +184,7 @@ namespace Awale.View
 
                 // Si condition de récolte bonne 
                 // - 2 ou 3 graines dans le trou courant
-                if(trouCourant.Valeur == 2 || trouCourant.Valeur == 3)
+                if (trouCourant.Valeur == 2 || trouCourant.Valeur == 3)
                 {
                     // On donne les graines au joueur
                     JoueurCourant.NbGraines += trouCourant.Valeur;
@@ -201,7 +203,7 @@ namespace Awale.View
                         // On passe au trou suivant
                         indexTrouCourant -= 1;
                     }
-                } 
+                }
                 // Si ce n'est pas le cas
                 else
                 {
@@ -227,16 +229,40 @@ namespace Awale.View
             {
                 MessageBox.Show(J1.Nom + " a gagné !!");
                 new Lancement().Show();
+                SaveScore();
                 Close();
             }
             if (J2.NbGraines >= nbGrainesRequis)
             {
                 MessageBox.Show(J2.Nom + " a gagné !!");
                 new Lancement().Show();
+                SaveScore();
                 Close();
 
             }
         }
+
+        public void SaveScore()
+        {
+            String chemin = "./save/score.csv";
+            // Determine whether the directory exists.
+            if (!Directory.Exists("./save"))
+            {
+                DirectoryInfo di = Directory.CreateDirectory("./save");
+            }
+
+            if (!File.Exists(chemin))
+            {
+                FileStream f = File.Create(chemin);
+                f.Close();
+            }
+
+            String scores = J1.Nom + ";" + J1.NbGraines + ";" + J2.Nom + ";" + J2.NbGraines;
+
+            // Ajout du score final dans le fichier
+            File.AppendAllText(chemin, scores + Environment.NewLine);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
