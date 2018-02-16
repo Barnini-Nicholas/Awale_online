@@ -29,10 +29,10 @@
         
         <!-- Zone pour indiquer l'adresse de l'hote -->
         <TextBlock Grid.Column="1" Grid.Row="3" Text="Adresse IP : "/>
-        <TextBox Grid.Column="2" Grid.Row="3" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding Ip}"/>
+        <TextBox Grid.Column="2" Grid.Row="3" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding Ip}" KeyDown="TextBox_KeyDown"/>
 
         <!-- Zone pour lancer la partie -->
-        <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Click="SeConnecter" Content="Se connecter !"/>
+        <Button Name="buttonGO" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Click="SeConnecter" Content="Se connecter !"/>
 
     </Grid>
 

@@ -90,5 +90,14 @@ namespace Awale.View
         {
 
         }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                // Simuler un click hé
+                buttonGO.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+        }
     }
 }
