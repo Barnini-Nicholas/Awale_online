@@ -48,9 +48,15 @@ namespace Awale.View
         {
             IPAddress ip = IPAddress.Parse(Ip);
             int port = 5000;
-            TcpClient client = new TcpClient();
-            client.Connect(ip, port);
-            Console.WriteLine("client connected!!");
+            try {
+                TcpClient client = new TcpClient();
+                client.Connect(ip, port);
+                Console.WriteLine("client connected!!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("CA MARCHE PAS");
+            }
         }
     }
 }
