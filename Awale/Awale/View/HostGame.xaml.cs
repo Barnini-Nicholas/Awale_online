@@ -88,12 +88,17 @@ namespace Awale.View
                 }
                 if (message.Split(';')[0] == "LANCER")
                 {
-                    MessageBox.Show("Lancement de la partie !");
+                    LancerLaPartie();
                 }
             }
         }
 
         private void LancerPartie(object sender, RoutedEventArgs e)
+        {
+            LancerLaPartie();
+        }
+
+        private void LancerLaPartie()
         {
             // Si un des noms n'a pas été donné
             if (NomJ1 == null)
@@ -101,9 +106,13 @@ namespace Awale.View
                 MessageBox.Show("Veuillez entrer votre nom");
                 return;
             }
+            if (NomJ2 == null)
+            {
+                MessageBox.Show("Veuillez attendre qu'un joueur se connecte");
+                return;
+            }
 
-            MessageBox.Show(NomJ1);
-
+            new PlateauDeJeu(NomJ1, NomJ2, 6).Show();
             Close();
         }
 
