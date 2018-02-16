@@ -19,14 +19,20 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <!-- Zone pour indiquer le nom du Joueur 1 -->
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Nom du Joueur 1 : "/>
+        <TextBox Grid.Column="2" Grid.Row="1" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding Nom}"/>
+        
+        <!-- Zone pour indiquer l'adresse de l'hote -->
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="Adresse IP : "/>
         <TextBox Grid.Column="2" Grid.Row="1" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding Ip}"/>
 
         <!-- Zone pour lancer la partie -->
-        <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Click="SeConnecter" Content="Se connecter !"/>
+        <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Click="SeConnecter" Content="Se connecter !"/>
 
     </Grid>
 

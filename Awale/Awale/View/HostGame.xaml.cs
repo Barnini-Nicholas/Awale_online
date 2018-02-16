@@ -51,6 +51,15 @@ namespace Awale.View
             TcpClient client = ServerSocket.AcceptTcpClient();
             Console.WriteLine("Someone connected!!");
 
+            NetworkStream ns = client.GetStream();
+            byte[] receivedBytes = new byte[1024];
+            int byte_count;
+
+            while ((byte_count = ns.Read(receivedBytes, 0, receivedBytes.Length)) > 0)
+            {
+                Console.Write(Encoding.ASCII.GetString(receivedBytes, 0, byte_count));
+            }
+
         }
 
         private void LancerPartie(object sender, RoutedEventArgs e)

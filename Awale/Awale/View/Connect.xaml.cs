@@ -22,6 +22,8 @@ namespace Awale.View
     /// </summary>
     public partial class Connect : Window
     {
+        public String Name { get; set; }
+
         public String Ip { get; set; }
 
         public Connect()
@@ -36,7 +38,13 @@ namespace Awale.View
             // Si un des noms n'a pas été donné
             if (Ip == null)
             {
-                MessageBox.Show("Veuillez entrerune adresse IP");
+                MessageBox.Show("Veuillez entrer une adresse IP");
+                return;
+            }
+
+            if (Name == null)
+            {
+                MessageBox.Show("Veuillez entrer un nom");
                 return;
             }
 
@@ -52,6 +60,13 @@ namespace Awale.View
                 TcpClient client = new TcpClient();
                 client.Connect(ip, port);
                 Console.WriteLine("client connected!!");
+
+                // Envoi d'un message test
+                byte[] buffer = Encoding.ASCII.GetBytes(Name + Environment.NewLine);
+
+                NetworkStream stream = client.GetStream();
+
+                stream.Write(buffer, 0, buffer.Length);
             }
             catch (Exception ex)
             {
