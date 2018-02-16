@@ -96,6 +96,7 @@ namespace Awale.View
             if (Keyboard.IsKeyDown(Key.Enter))
             {
                 // Simuler un click hé
+                buttonGO.Focus();
                 buttonGO.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
