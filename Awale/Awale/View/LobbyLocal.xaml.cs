@@ -22,6 +22,7 @@ namespace Awale.View
     {
         public String NomJ1 { get; set; }
         public String NomJ2 { get; set; }
+        public Boolean IsIA { get; set; }
 
         public int NbColumns { get; set; }
         public const int DefaultNbColumns = 6;
@@ -46,7 +47,7 @@ namespace Awale.View
             }
 
             // Lancement de la Partie
-            new PlateauDeJeu(NomJ1, NomJ2, NbColumns).Show();
+            new PlateauDeJeu(NomJ1, NomJ2, NbColumns, IsIA).Show();
 
             Close();
         }

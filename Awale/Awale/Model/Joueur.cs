@@ -11,6 +11,8 @@ namespace Awale.Model
     {
         public int Id { get; set; }
         public String Nom { get; set; }
+        public Boolean IsIA { get; set; }
+
         private int nbGraines;
         public int NbGraines
         {
@@ -25,10 +27,22 @@ namespace Awale.Model
             }
         }
         public Joueur(String nom, int id)
+        {
+            Id = id;
+            Nom = nom;
+        }
+
+        public void SetIsIA(Boolean isIA)
+        {
+            IsIA = isIA;
+
+            if(isIA == true)
             {
-                Id = id;
-                Nom = nom;
-            }
+                // Ajout de IA au nom 
+                Nom = Nom + " (IA)";
+            }   
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         }
 }

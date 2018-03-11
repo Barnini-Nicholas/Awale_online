@@ -22,7 +22,7 @@ namespace Awale.View
     /// <summary>
     /// Logique d'interaction pour LobbyEnLigne.xaml
     /// </summary>
-    public partial class HostGame : Window , INotifyPropertyChanged
+    public partial class HostGame : Window, INotifyPropertyChanged
     {
         public String NomJ1 { get; set; }
         private String nomJ2;
@@ -78,12 +78,12 @@ namespace Awale.View
             while (true)
             {
                 String message = "";
-                
+
                 BinaryReader reader = new BinaryReader(client.GetStream());
                 message = reader.ReadString();
                 Console.WriteLine(message);
 
-                if(message.Split(';')[0] == "NOM")
+                if (message.Split(';')[0] == "NOM")
                 {
                     NomJ2 = message.Split(';')[1];
                 }
@@ -116,7 +116,7 @@ namespace Awale.View
                 return;
             }
 
-            new PlateauDeJeu(NomJ1, NomJ2, 6).Show();
+            new PlateauDeJeu(NomJ1, NomJ2, 6, false).Show();
             Close();
         }
 

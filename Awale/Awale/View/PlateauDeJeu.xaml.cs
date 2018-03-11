@@ -34,6 +34,9 @@ namespace Awale.View
         public Joueur J1 { get; set; }
         public Joueur J2 { get; set; }
 
+        public Boolean IsJ2IA { get; set; }
+
+
         private Joueur joueurCourant;
         public Joueur JoueurCourant
         {
@@ -47,10 +50,9 @@ namespace Awale.View
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("joueurCourant"));
             }
         }
-        public PlateauDeJeu(string nomJ1, string nomJ2, int nbColumns)
+        public PlateauDeJeu(string nomJ1, string nomJ2, int nbColumns, bool isIA)
         {
             InitializeComponent();
-
 
             NbColumns = nbColumns;
             NbTrous = nbColumns * 2;
@@ -60,6 +62,10 @@ namespace Awale.View
             J1 = new Joueur(nomJ1, 1);
             J2 = new Joueur(nomJ2, 2);
 
+            // Indique si le J2 est une IA
+            J2.SetIsIA(isIA);
+
+            // J1 commence
             JoueurCourant = J1;
 
             // Liste des trous
@@ -117,7 +123,7 @@ namespace Awale.View
             // Check si le Joueur clique sur la bonne rangée
             if (trou.Joueur != JoueurCourant)
             {
-                MessageBox.Show("Tu triches " + trou.Joueur.Nom);
+                MessageBox.Show("Tu triches " + JoueurCourant.Nom +", ce n'est pas ton trou !");
                 return;
             }
 

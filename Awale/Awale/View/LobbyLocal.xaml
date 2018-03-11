@@ -23,6 +23,8 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <!-- Zone pour indiquer le nom du Joueur 1 -->
@@ -31,10 +33,14 @@
         
         <!-- Zone pour indiquer le nom du Joueur 2 -->
         <TextBlock Grid.Column="1" Grid.Row="3" Text="Nom du Joueur 2 : "/>
-        <TextBox Grid.Column="2" Grid.Row="3" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding NomJ2}"/>
+        <TextBox Grid.Column="2" Grid.Row="3" IsReadOnly="{Binding IsIA}" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding NomJ2}"/>
+
+        <!-- Zone pour choisir si on veut jouer contre une IA -->
+        <TextBlock Grid.Column="1" Grid.Row="5" Text="Jouer contre IA "/>
+        <CheckBox Grid.Column="2" Grid.Row="5" IsChecked="{Binding IsIA}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
         <!-- Zone pour choisir le nombre de colonnes -->
-        <DockPanel  Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Center">
+        <DockPanel  Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center">
             <!-- Texte qui affiche le nombre de colonne choisi -->
             <TextBox Text="{Binding ElementName=slValue, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
             <!-- Slider pour choisir le nombre de colonnes -->
@@ -42,7 +48,7 @@
         </DockPanel>
 
         <!-- Zone pour lancer la partie -->
-        <Button Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" Click="LancerPartie" Content="Lancer la partie !"/>
+        <Button Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Click="LancerPartie" Content="Lancer la partie !"/>
 
     </Grid>
 
