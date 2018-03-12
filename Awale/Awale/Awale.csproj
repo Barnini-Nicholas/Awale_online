@@ -101,6 +101,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\IA.cs" />
     <Compile Include="Model\Joueur.cs" />
     <Compile Include="Model\Score.cs" />
     <Compile Include="Model\Trou.cs" />

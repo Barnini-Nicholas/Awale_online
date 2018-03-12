@@ -127,15 +127,33 @@ namespace Awale.View
                 return;
             }
 
-            // Valeur du Trou
-            int valeur = trou.Valeur;
-
             // Check si le trou n'est pas vide
-            if (valeur == 0)
+            if (trou.Valeur == 0)
             {
                 MessageBox.Show("Tu ne peux pas tricheur " + trou.Joueur.Nom);
                 return;
             }
+
+            // Gestion de l'action
+            TraitementActionJoueur(trou);
+            
+            // Si le joueur 2 est une IA ...
+            if(J2.IsIA == true)
+            {
+                // On fait jouer l'IA
+                Trou trouChoisiParIA = IA.ChoisirAction(J2, ListTrousOrdonnes);
+
+                // On traite son choix
+                TraitementActionJoueur(trouChoisiParIA);
+            }
+        }
+
+        public void TraitementActionJoueur(Trou trou)
+        {
+            // Valeur du Trou
+            int valeur = trou.Valeur;
+
+           
 
             // On vide le Trou
             trou.Valeur = 0;
@@ -228,8 +246,13 @@ namespace Awale.View
                 JoueurCourant = J1;
             }
 
-            // Compteur de score
+            // Check si il y'a un vainqueur
+            CheckSiVainqueur();
+        }
 
+        public void CheckSiVainqueur()
+        {
+            // Compteur de score
             int nbGrainesRequis = (NbGraines / 2) + 1;
             if (J1.NbGraines >= nbGrainesRequis)
             {
@@ -244,7 +267,6 @@ namespace Awale.View
                 new Lancement().Show();
                 SaveScore();
                 Close();
-
             }
         }
 
