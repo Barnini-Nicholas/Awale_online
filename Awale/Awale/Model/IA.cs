@@ -10,7 +10,6 @@ namespace Awale.Model
     {
         public static Trou ChoisirAction(Joueur joueur, List<Trou> listTrous)
         {
-            Trou trouChoisi;
 
             // Parcours de la liste des trous ...
             foreach(Trou trou in listTrous)

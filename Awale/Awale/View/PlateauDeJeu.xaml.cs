@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,6 +37,12 @@ namespace Awale.View
         public Joueur J2 { get; set; }
 
         public Boolean IsJ2IA { get; set; }
+        public Boolean IsCombatReseau { get; set; }
+
+        private TcpClient client;
+
+        public Joueur JoueurActuelReseau;
+        public TcpListener ServerSocket { get; set; }
 
 
         private Joueur joueurCourant;
@@ -50,7 +58,7 @@ namespace Awale.View
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("joueurCourant"));
             }
         }
-        public PlateauDeJeu(string nomJ1, string nomJ2, int nbColumns, bool isIA)
+        public PlateauDeJeu(string nomJ1, string nomJ2, int nbColumns, bool isIA, bool isCombatReseau)
         {
             InitializeComponent();
 
@@ -64,6 +72,9 @@ namespace Awale.View
 
             // Indique si le J2 est une IA
             J2.SetIsIA(isIA);
+
+            // Indique si c'est un combat en Réseau
+            IsCombatReseau = isCombatReseau;
 
             // J1 commence
             JoueurCourant = J1;
@@ -111,6 +122,43 @@ namespace Awale.View
             DataContext = this;
         }
 
+        public void SetCombatReseau(TcpClient client, TcpListener serverSocket, Boolean isJ1)
+        {
+            if(isJ1 == false)
+            {
+                JoueurActuelReseau = J2;
+            } else
+            {
+                JoueurActuelReseau = J1;
+                ServerSocket = serverSocket;
+            }
+
+            this.client = client;
+
+            // Lancement du serveur...
+            Thread t = new Thread(AttenteMessage);
+            t.Start();
+        }
+
+        private void AttenteMessage()
+        {
+            Console.WriteLine("ecoute ....");
+            while (true)
+            {
+                String message = "";
+
+                BinaryReader reader = new BinaryReader(client.GetStream());
+                message = reader.ReadString();
+                Console.WriteLine(message);
+
+                if (message.Split(';')[0] == "ACTION")
+                {
+                    int indexTrou = Int32.Parse(message.Split(';')[1]);
+                    TraitementActionJoueur(ListTrousOrdonnes[indexTrou]);
+                }
+            }
+        }
+
 
         void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -134,6 +182,15 @@ namespace Awale.View
                 return;
             }
 
+            // Check pour le reseau
+            if(JoueurCourant != JoueurActuelReseau)
+            {
+                MessageBox.Show("Ce n'est pas à toi de jouer ! ");
+                return;
+            }
+
+            
+
             // Gestion de l'action
             TraitementActionJoueur(trou);
             
@@ -145,6 +202,16 @@ namespace Awale.View
 
                 // On traite son choix
                 TraitementActionJoueur(trouChoisiParIA);
+            }
+
+            // Si partie en réseau 
+            if (IsCombatReseau == true)
+            {
+                int indexTrou = ListTrousOrdonnes.IndexOf(trou);
+                BinaryWriter writer = new BinaryWriter(client.GetStream());
+                writer.Write("ACTION;" + indexTrou);
+
+                Console.WriteLine("aaaaa" + indexTrou);
             }
         }
 

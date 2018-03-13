@@ -28,6 +28,7 @@ namespace Awale.View
         private String nomJ2;
         private TcpClient client;
         public Thread Attente { get; set; }
+        public TcpListener ServerSocket { get; set; }
 
         public String NomJ2
         {
@@ -62,7 +63,7 @@ namespace Awale.View
 
         public void LancementServeur()
         {
-            TcpListener ServerSocket = new TcpListener(IPAddress.Any, 5000);
+            ServerSocket = new TcpListener(IPAddress.Any, 5000);
             ServerSocket.Start();
             Console.WriteLine("Serveur en marche... " + ServerSocket.ToString());
 
@@ -116,7 +117,15 @@ namespace Awale.View
                 return;
             }
 
-            new PlateauDeJeu(NomJ1, NomJ2, 6, false).Show();
+            BinaryWriter writer = new BinaryWriter(client.GetStream());
+            writer.Write("LANCER;"+NomJ1);
+
+            PlateauDeJeu plateau = new PlateauDeJeu(NomJ1, NomJ2, 6, false, true);
+
+            plateau.SetCombatReseau(client, ServerSocket, true);
+
+            plateau.Show();
+
             Close();
         }
 

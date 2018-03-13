@@ -26,6 +26,9 @@ namespace Awale.View
         private TcpClient server;
 
         public String Nom { get; set; }
+        public String NomJ2 { get; set; }
+
+        public Thread Attente { get; set; }
 
         public String Ip { get; set; }
 
@@ -79,6 +82,9 @@ namespace Awale.View
                 BinaryWriter writer = new BinaryWriter(server.GetStream());
                 writer.Write("NOM;" + Nom);
 
+                Attente = new Thread(AttenteMessage);
+                Attente.Start();
+
             }
             catch (Exception)
             {
@@ -88,7 +94,42 @@ namespace Awale.View
 
         private void AttenteMessage()
         {
+            while (true)
+            {
+                String message = "";
 
+                BinaryReader reader = new BinaryReader(server.GetStream());
+                message = reader.ReadString();
+                Console.WriteLine(message);
+
+                
+                if (message.Split(';')[0] == "LANCER")
+
+                {
+                    NomJ2 = message.Split(';')[1];
+
+                    Dispatcher.Invoke((LancerPartieDelegate)LancerLaPartie);
+                }
+            }
+        }
+        private delegate void LancerPartieDelegate();
+
+        private void LancerPartie(object sender, RoutedEventArgs e)
+        {
+            LancerLaPartie();
+        }
+
+
+        private void LancerLaPartie()
+        {
+            
+            PlateauDeJeu plateau = new PlateauDeJeu(NomJ2, Nom, 6, false, true);
+
+            plateau.SetCombatReseau(server, null, false);
+
+            plateau.Show();
+
+            Close();
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)

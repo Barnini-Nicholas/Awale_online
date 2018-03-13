@@ -47,7 +47,7 @@ namespace Awale.View
             }
 
             // Lancement de la Partie
-            new PlateauDeJeu(NomJ1, NomJ2, NbColumns, IsIA).Show();
+            new PlateauDeJeu(NomJ1, NomJ2, NbColumns, IsIA, false).Show();
 
             Close();
         }
