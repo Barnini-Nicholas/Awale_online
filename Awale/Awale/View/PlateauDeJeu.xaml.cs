@@ -38,12 +38,10 @@ namespace Awale.View
 
         public Boolean IsJ2IA { get; set; }
         public Boolean IsCombatReseau { get; set; }
-
-        private TcpClient client;
-
+        
         public Joueur JoueurActuelReseau;
-        public TcpListener ServerSocket { get; set; }
-
+        private HostGame hostGame;
+        private Connect connect;
 
         private Joueur joueurCourant;
         public Joueur JoueurCourant
@@ -122,43 +120,26 @@ namespace Awale.View
             DataContext = this;
         }
 
-        public void SetCombatReseau(TcpClient client, TcpListener serverSocket, Boolean isJ1)
+        public void ActionJoueurReseau(int indexTrou)
+        {
+            TraitementActionJoueur(ListTrousOrdonnes[indexTrou]);
+        }
+
+        public void SetCombatReseau(HostGame hostGame, Connect connect, Boolean isJ1)
         {
             if(isJ1 == false)
             {
+                this.connect = connect;
                 JoueurActuelReseau = J2;
             } else
             {
+                this.hostGame = hostGame;
                 JoueurActuelReseau = J1;
-                ServerSocket = serverSocket;
             }
 
-            this.client = client;
-
-            // Lancement du serveur...
-            Thread t = new Thread(AttenteMessage);
-            t.Start();
         }
 
-        private void AttenteMessage()
-        {
-            Console.WriteLine("ecoute ....");
-            while (true)
-            {
-                String message = "";
-
-                BinaryReader reader = new BinaryReader(client.GetStream());
-                message = reader.ReadString();
-                Console.WriteLine(message);
-
-                if (message.Split(';')[0] == "ACTION")
-                {
-                    int indexTrou = Int32.Parse(message.Split(';')[1]);
-                    TraitementActionJoueur(ListTrousOrdonnes[indexTrou]);
-                }
-            }
-        }
-
+        
 
         void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -208,10 +189,15 @@ namespace Awale.View
             if (IsCombatReseau == true)
             {
                 int indexTrou = ListTrousOrdonnes.IndexOf(trou);
-                BinaryWriter writer = new BinaryWriter(client.GetStream());
-                writer.Write("ACTION;" + indexTrou);
 
-                Console.WriteLine("aaaaa" + indexTrou);
+                if (hostGame != null)
+                {
+                    hostGame.SendAction(indexTrou);
+                } else
+                {
+                    connect.SendAction(indexTrou);
+                }
+                
             }
         }
 
@@ -326,14 +312,28 @@ namespace Awale.View
                 MessageBox.Show(J1.Nom + " a gagné !!");
                 new Lancement().Show();
                 SaveScore();
-                Close();
+                if (hostGame != null)
+                {
+                    hostGame.CloseAll();
+                }
+                else
+                {
+                    connect.CloseAll();
+                };
             }
             if (J2.NbGraines >= nbGrainesRequis)
             {
                 MessageBox.Show(J2.Nom + " a gagné !!");
                 new Lancement().Show();
                 SaveScore();
-                Close();
+                if (hostGame != null)
+                {
+                    hostGame.CloseAll();
+                }
+                else
+                {
+                    connect.CloseAll();
+                };
             }
         }
 

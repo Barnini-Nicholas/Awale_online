@@ -29,6 +29,7 @@ namespace Awale.View
         private TcpClient client;
         public Thread Attente { get; set; }
         public TcpListener ServerSocket { get; set; }
+        private PlateauDeJeu plateau;
 
         public String NomJ2
         {
@@ -92,6 +93,11 @@ namespace Awale.View
                 {
                     Dispatcher.Invoke((LancerPartieDelegate)LancerLaPartie);
                 }
+                if (message.Split(';')[0] == "ACTION")
+                {
+                    int indexTrou = Int32.Parse(message.Split(';')[1]);
+                    plateau.ActionJoueurReseau(indexTrou);
+                }
             }
         }
 
@@ -120,16 +126,31 @@ namespace Awale.View
             BinaryWriter writer = new BinaryWriter(client.GetStream());
             writer.Write("LANCER;"+NomJ1);
 
-            PlateauDeJeu plateau = new PlateauDeJeu(NomJ1, NomJ2, 6, false, true);
+            plateau = new PlateauDeJeu(NomJ1, NomJ2, 6, false, true);
 
-            plateau.SetCombatReseau(client, ServerSocket, true);
+            plateau.SetCombatReseau(this, null, true);
 
             plateau.Show();
 
-            Close();
+            Hide();
+
+            // Close();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        internal void SendAction(int indexTrou)
+        {
+            BinaryWriter writer = new BinaryWriter(client.GetStream());
+            writer.Write("ACTION;" + indexTrou);
+
+            Console.WriteLine("aaaaa" + indexTrou);
+        }
+
+        internal void CloseAll()
+        {
+            plateau.Close();
+            Close();
+        }
     }
 }

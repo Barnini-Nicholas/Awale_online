@@ -29,6 +29,7 @@ namespace Awale.View
         public String NomJ2 { get; set; }
 
         public Thread Attente { get; set; }
+        private PlateauDeJeu plateau;
 
         public String Ip { get; set; }
 
@@ -110,6 +111,12 @@ namespace Awale.View
 
                     Dispatcher.Invoke((LancerPartieDelegate)LancerLaPartie);
                 }
+
+                if (message.Split(';')[0] == "ACTION")
+                {
+                    int indexTrou = Int32.Parse(message.Split(';')[1]);
+                    plateau.ActionJoueurReseau(indexTrou);
+                }
             }
         }
         private delegate void LancerPartieDelegate();
@@ -123,13 +130,15 @@ namespace Awale.View
         private void LancerLaPartie()
         {
             
-            PlateauDeJeu plateau = new PlateauDeJeu(NomJ2, Nom, 6, false, true);
+            plateau = new PlateauDeJeu(NomJ2, Nom, 6, false, true);
 
-            plateau.SetCombatReseau(server, null, false);
+            plateau.SetCombatReseau(null, this, false);
 
             plateau.Show();
 
-            Close();
+            Hide();
+
+            //Close();
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -140,6 +149,20 @@ namespace Awale.View
                 buttonGO.Focus();
                 buttonGO.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
+        }
+
+        internal void SendAction(int indexTrou)
+        {
+            BinaryWriter writer = new BinaryWriter(server.GetStream());
+            writer.Write("ACTION;" + indexTrou);
+
+            Console.WriteLine("aaaaa" + indexTrou);
+        }
+
+        internal void CloseAll()
+        {
+            plateau.Close();
+            Close();
         }
     }
 }
