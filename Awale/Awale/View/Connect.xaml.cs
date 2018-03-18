@@ -138,7 +138,6 @@ namespace Awale.View
 
             Hide();
 
-            //Close();
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -161,8 +160,14 @@ namespace Awale.View
 
         internal void CloseAll()
         {
+
+            Attente.Abort();
             plateau.Close();
+
+            new Lancement().Show();
+
             Close();
         }
+
     }
 }

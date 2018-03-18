@@ -131,10 +131,12 @@ namespace Awale.View
             {
                 this.connect = connect;
                 JoueurActuelReseau = J2;
+                Title = "Combat réseau - " + J2.Nom;
             } else
             {
                 this.hostGame = hostGame;
                 JoueurActuelReseau = J1;
+                Title = "Combat réseau - " + J1.Nom;
             }
 
         }
@@ -199,6 +201,9 @@ namespace Awale.View
                 }
                 
             }
+
+            // Check si il y'a un vainqueur
+            CheckSiVainqueur();
         }
 
         public void TraitementActionJoueur(Trou trou)
@@ -207,7 +212,6 @@ namespace Awale.View
             int valeur = trou.Valeur;
 
            
-
             // On vide le Trou
             trou.Valeur = 0;
 
@@ -299,8 +303,6 @@ namespace Awale.View
                 JoueurCourant = J1;
             }
 
-            // Check si il y'a un vainqueur
-            CheckSiVainqueur();
         }
 
         public void CheckSiVainqueur()
@@ -310,7 +312,6 @@ namespace Awale.View
             if (J1.NbGraines >= nbGrainesRequis)
             {
                 MessageBox.Show(J1.Nom + " a gagné !!");
-                new Lancement().Show();
                 SaveScore();
                 if (hostGame != null)
                 {
@@ -324,7 +325,6 @@ namespace Awale.View
             if (J2.NbGraines >= nbGrainesRequis)
             {
                 MessageBox.Show(J2.Nom + " a gagné !!");
-                new Lancement().Show();
                 SaveScore();
                 if (hostGame != null)
                 {

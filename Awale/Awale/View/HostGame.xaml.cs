@@ -149,8 +149,12 @@ namespace Awale.View
 
         internal void CloseAll()
         {
+            Attente.Abort();
             plateau.Close();
+            new Lancement().Show();
+
             Close();
         }
+
     }
 }
