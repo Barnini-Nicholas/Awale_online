@@ -166,13 +166,27 @@ namespace Awale.View
             }
 
             // Check pour le reseau
-            if(JoueurCourant != JoueurActuelReseau)
+            if(IsCombatReseau == true && JoueurCourant != JoueurActuelReseau)
             {
                 MessageBox.Show("Ce n'est pas à toi de jouer ! ");
                 return;
             }
 
-            
+            // Si partie en réseau 
+            if (IsCombatReseau == true)
+            {
+                int indexTrou = ListTrousOrdonnes.IndexOf(trou);
+
+                if (hostGame != null)
+                {
+                    hostGame.SendAction(indexTrou);
+                }
+                else
+                {
+                    connect.SendAction(indexTrou);
+                }
+
+            }
 
             // Gestion de l'action
             TraitementActionJoueur(trou);
@@ -187,23 +201,9 @@ namespace Awale.View
                 TraitementActionJoueur(trouChoisiParIA);
             }
 
-            // Si partie en réseau 
-            if (IsCombatReseau == true)
-            {
-                int indexTrou = ListTrousOrdonnes.IndexOf(trou);
+            
 
-                if (hostGame != null)
-                {
-                    hostGame.SendAction(indexTrou);
-                } else
-                {
-                    connect.SendAction(indexTrou);
-                }
-                
-            }
-
-            // Check si il y'a un vainqueur
-            CheckSiVainqueur();
+         
         }
 
         public void TraitementActionJoueur(Trou trou)
@@ -303,6 +303,9 @@ namespace Awale.View
                 JoueurCourant = J1;
             }
 
+            // Check si il y'a un vainqueur
+            CheckSiVainqueur();
+
         }
 
         public void CheckSiVainqueur()
@@ -313,27 +316,13 @@ namespace Awale.View
             {
                 MessageBox.Show(J1.Nom + " a gagné !!");
                 SaveScore();
-                if (hostGame != null)
-                {
-                    hostGame.CloseAll();
-                }
-                else
-                {
-                    connect.CloseAll();
-                };
+              
             }
             if (J2.NbGraines >= nbGrainesRequis)
             {
                 MessageBox.Show(J2.Nom + " a gagné !!");
                 SaveScore();
-                if (hostGame != null)
-                {
-                    hostGame.CloseAll();
-                }
-                else
-                {
-                    connect.CloseAll();
-                };
+             
             }
         }
 

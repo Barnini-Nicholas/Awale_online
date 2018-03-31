@@ -10,6 +10,8 @@ namespace Awale.Model
     {
         public static Trou ChoisirAction(Joueur joueur, List<Trou> listTrous)
         {
+            // temp d'un trou
+            Trou tempTrou = null;
 
             // Parcours de la liste des trous ...
             foreach(Trou trou in listTrous)
@@ -17,14 +19,19 @@ namespace Awale.Model
                 // Si c'est un trou à nous
                 if (trou.Joueur.Equals(joueur))
                 {
-                    if(trou.Valeur > 0)
+                    if(tempTrou == null)
                     {
-                        return trou;
+                        tempTrou = trou;
+                    }
+
+                    if(trou.Valeur > tempTrou.Valeur)
+                    {
+                        tempTrou = trou;
                     }
                 }
             }
 
-            return null;
+            return tempTrou;
         }
     }
 }

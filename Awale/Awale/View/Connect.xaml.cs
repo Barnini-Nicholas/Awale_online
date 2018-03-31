@@ -42,6 +42,8 @@ namespace Awale.View
 
         private void SeConnecter(object sender, RoutedEventArgs e)
         {
+            Button bouton = sender as Button;
+
             // Si un des noms n'a pas été donné
             if (Ip == null)
             {
@@ -54,20 +56,12 @@ namespace Awale.View
                 MessageBox.Show("Veuillez entrer un nom");
                 return;
             }
-            Button bouton = sender as Button;
 
-            if (bouton.Content.ToString() == "Lancer la partie !")
-            {
-                BinaryWriter writer = new BinaryWriter(server.GetStream());
-                writer.Write("LANCER;" + Nom);
-            }
-            else
-            {
-                Thread t = new Thread(ConnectToHost);
-                t.Start();
+            Thread t = new Thread(ConnectToHost);
+            t.Start();
 
-                bouton.Content = "Lancer la partie !";
-            }
+            bouton.Content = "En attente...";
+            bouton.IsEnabled = false;
         }
 
         private void ConnectToHost()
@@ -98,9 +92,9 @@ namespace Awale.View
             while (true)
             {
                 String message = "";
-
                 BinaryReader reader = new BinaryReader(server.GetStream());
                 message = reader.ReadString();
+               
                 Console.WriteLine(message);
 
                 
@@ -116,6 +110,8 @@ namespace Awale.View
                 {
                     int indexTrou = Int32.Parse(message.Split(';')[1]);
                     plateau.ActionJoueurReseau(indexTrou);
+
+                    Console.WriteLine(indexTrou);
                 }
             }
         }
@@ -154,19 +150,17 @@ namespace Awale.View
         {
             BinaryWriter writer = new BinaryWriter(server.GetStream());
             writer.Write("ACTION;" + indexTrou);
-
-            Console.WriteLine("aaaaa" + indexTrou);
         }
 
         internal void CloseAll()
         {
-
+            /*
             Attente.Abort();
             plateau.Close();
-
+            Console.WriteLine("CONNECT EXIT");
             new Lancement().Show();
 
-            Close();
+            Close();*/
         }
 
     }

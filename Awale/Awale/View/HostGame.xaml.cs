@@ -97,6 +97,8 @@ namespace Awale.View
                 {
                     int indexTrou = Int32.Parse(message.Split(';')[1]);
                     plateau.ActionJoueurReseau(indexTrou);
+
+                    Console.WriteLine(indexTrou);
                 }
             }
         }
@@ -143,17 +145,17 @@ namespace Awale.View
         {
             BinaryWriter writer = new BinaryWriter(client.GetStream());
             writer.Write("ACTION;" + indexTrou);
-
-            Console.WriteLine("aaaaa" + indexTrou);
         }
 
         internal void CloseAll()
         {
-            Attente.Abort();
+            /*Attente.Abort();
             plateau.Close();
+            Console.WriteLine("HOSTGAME EXIT");
+
             new Lancement().Show();
 
-            Close();
+            Close();*/
         }
 
     }
