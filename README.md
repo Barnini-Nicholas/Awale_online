@@ -1,6 +1,8 @@
 # Awale_online
 Jeu d'awale en C# avec une connexion réseau.
 
+Développé par Nicholas BARNINI et Karl FERRERO
+
 Fonctionnalités intégrées : 
 - Jouer à deux sur une même machine
 - Jouer seul contre une IA
